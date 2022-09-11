@@ -25,7 +25,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - "output*"
+            - output*
 
 
   print_world:
@@ -51,10 +51,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          
-          command:
-            cat  output.txt 
+      - run:  cat ~/output.txt 
 
             
 
@@ -70,4 +67,6 @@ workflows:
           requires: 
             - print_hello
 
-      - print_output_file
+      - print_output_file:
+          requires: 
+                - print_hello
