@@ -26,7 +26,7 @@ jobs:
       - checkout
       - run:
           name: "print hello"
-          command: "print hello!"
+          command: "echo  hello!"
 
   print_world:
     docker:
@@ -36,7 +36,7 @@ jobs:
       - checkout
       - run:
           name: "print world"
-          command: "print world!"
+          command: "echo world!"
 
 
 # Invoke jobs via workflows
