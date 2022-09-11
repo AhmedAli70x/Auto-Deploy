@@ -17,7 +17,7 @@ jobs:
       - run:
           name: "print hello"
           command: |
-            "echo  hello!"
+    
             echo $CIRCLE_COMPARE_URL
             echo "text to output here" > output${CIRCLE_NODE_INDEX}.txt 
             echo "text to output here" > output.txt 
