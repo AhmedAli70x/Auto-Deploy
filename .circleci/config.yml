@@ -8,8 +8,11 @@ version: 2.1
 
 commands:
   print_pipeline_id:
+    parameters:
+      id:
+        type: string
     steps:
-      - run: echo ${CIRCLE_WORKFLOW_ID}
+      - run: echo << parameters.id >>
 
 jobs:
            
@@ -20,7 +23,10 @@ jobs:
     environment:
       CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
     steps:
-      - print_pipeline_id 
+
+      - print_pipeline_id:
+          id: << pipeline.id >>
+
       - checkout
       - run:
           name: "print hello"
