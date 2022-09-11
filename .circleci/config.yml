@@ -16,8 +16,16 @@ jobs:
       - checkout
       - run:
           name: "print hello"
-          command: "echo  hello!"
-      - run: echo $CIRCLE_COMPARE_URL
+          command: |
+            "echo  hello!"
+            echo $CIRCLE_COMPARE_URL
+            echo "text to output here" > output${CIRCLE_NODE_INDEX}.txt 
+            echo "text to output here" > output.txt 
+      
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "output*"
 
 
   print_world:
@@ -26,11 +34,31 @@ jobs:
     
     steps: 
       - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: "print world"
-          command: "echo world!"
+          command: |
+            echo world!
+    
 
-      - run: echo Job-$CIRCLE_WORKFLOW_ID	
+
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    
+    steps: 
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          
+          command:
+            cat  output.txt 
+
+            
+
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
